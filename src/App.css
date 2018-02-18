@@ -1,0 +1,25 @@
+.board{
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  top: 100px;
+  border: 1px solid #000;
+
+
+}
+.tileRow{
+  display: block;
+  font-size: 0px;
+  line-height: 0;
+}
+.tile{
+  border: 5px solid #999;
+  width: 100px;
+  height: 100px;
+  display: inline-block;
+}
+
+.tile-1{
+  background-color: red;
+}
