@@ -7,7 +7,7 @@ import './App.css';
 class Navbar extends Component {
   render() {
     return (
-      <nav className="navbar sticky-top navbar-dark bg-dark">
+      <nav className="navbar fixed-top navbar-dark bg-dark">
         <a className="navbar-brand" href="#">Street Maintenance Simulator</a>
         <button className='btn btn-secondary'>Next Turn</button>
       </nav>
@@ -34,25 +34,20 @@ class Tile extends Component {
 class Board extends Component {
   renderTile(){
     return (
-      <Tile/>
+      <div>tile</div>
     );
   }
   render() {
+    var self = this;
+    var tileRows = this.props.tiles.map(function(tileRow, rowIndex){
+      var tiles = tileRow.map(function(tile, colIndex){
+        return <span className={'tile tile-'+tile}  key={colIndex} onClick={()=>self.props.handleClick(rowIndex, colIndex)}>value: {tile}<br /> row: {rowIndex}<br />  col: {colIndex},</span>
+      })
+      return <div key={rowIndex}>{tiles}</div>;
+    })
     return (
       <div className='board'>
-        {
-          this.props.tiles.map(
-            tileRow =>
-              <div className='tileRow' key={tileRow}>
-                {
-                  tileRow.map(
-                    tile =>
-                      <span className={'tile tile-'+tile} >{tile}</span>
-                  )
-                }
-              </div>
-            )
-          }
+        {tileRows}
       </div>
     );
   }
@@ -64,7 +59,7 @@ class App extends Component {
     this.state = {
       tiles: [
         [0,0,0],
-        [0,1,0],
+        [0,1,1],
         [0,0,0],
       ],
       year: 1,
@@ -72,6 +67,32 @@ class App extends Component {
       revenue: 0,
       expense: 0,
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  handleClick(row, col){
+    var tiles = this.state.tiles;
+    console.log(row, col);
+    tiles[row][col]=1;
+    var numRows = tiles.length;
+    var numCols = tiles[row].length;
+    if(row == 0){
+      tiles.unshift(Array(numCols).fill(0));
+    }
+    else if(row == numRows-1){
+      tiles.push(Array(numCols).fill(0));
+    }
+    if(col == 0){
+      tiles.forEach(function(tileRow){
+        tileRow.unshift(0);
+      })
+    }
+    else if(col == numCols-1){
+      tiles.forEach(function(tileRow){
+        tileRow.push(0);
+      })
+    }
+    console.log(tiles);
+    this.setState({tiles: tiles})
   }
   render() {
     return (
@@ -79,6 +100,7 @@ class App extends Component {
         <Navbar />
         <Board
           tiles = {this.state.tiles}
+          handleClick = {this.handleClick}
         />
         <sidebar
           year={this.state.year}
