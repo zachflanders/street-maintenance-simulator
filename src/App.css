@@ -1,29 +1,45 @@
 .board{
   position: absolute;
-  border: 1px solid #000;
+  border: 0px solid #000;
   white-space: nowrap;
+  margin-top: 108px;
+  background-color: green;
   /*-ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);*/
 
 
 }
+.toolbar{
+  margin-top: 54px;
+}
+
 .tileRow{
   display: block;
   font-size: 0px;
   line-height: 0;
 }
 .tile{
-  border: 0px solid #999;
+  border-top: 1px dotted #999;
+  border-right: 1px dotted #999;
   width: 100px;
   height: 100px;
   display: inline-block;
   -webkit-transition: 0.5s;
--moz-transition: 0.5s;
--o-transition: 0.5s;
-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -o-transition: 0.5s;
+  transition: 0.5s;
+  line-height: 20px;
+  /*-ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);*/
+
 }
 
 .tile-1{
-  background-color: red;
+  background-color: #666;
+}
+
+.board > div{
+  line-height: 0px;
 }
